@@ -9,16 +9,16 @@
 import Foundation
 
 protocol APIRequesting {
-    func performRequest<T: Codable, V: APIRouting>(router: V,
-                                                   configuration: NetworkConfiguration,
-                                                   completion: ((Result<T, Error>) -> Void)?)
-    func performRequest<T: Codable, V: APIRouting>(router: V,
-                                                   completion: ((Result<T, Error>) -> Void)?)
+    func performRequest<T: Decodable, V: APIRouting>(router: V,
+                                                     configuration: NetworkConfiguration,
+                                                     completion: ((Result<T, Error>) -> Void)?)
+    func performRequest<T: Decodable, V: APIRouting>(router: V,
+                                                     completion: ((Result<T, Error>) -> Void)?)
 }
 
 extension APIRequesting {
-    func performRequest<T: Codable, V: APIRouting>(router: V,
-                                                   completion: ((Result<T, Error>) -> Void)?) {
+    func performRequest<T: Decodable, V: APIRouting>(router: V,
+                                                     completion: ((Result<T, Error>) -> Void)?) {
         performRequest(router: router,
                        configuration: NetworkConfiguration.default,
                        completion: completion)

@@ -18,11 +18,10 @@ struct URLSessionEngine: APIRequesting {
         self.completionQueue = completionQueue
     }
 
-    func performRequest<T: Codable, V: APIRouting>(router: V,
-                                                   configuration: NetworkConfiguration,
-                                                   completion: ((Result<T, Error>) -> Void)?) {
-        dispatcher.dispatch(router,
-                            configuration: configuration) { data, error, response in
+    func performRequest<T: Decodable, V: APIRouting>(router: V,
+                                                     configuration: NetworkConfiguration,
+                                                     completion: ((Result<T, Error>) -> Void)?) {
+        dispatcher.dispatch(router, configuration: configuration) { data, error, response in
             guard response?.hasSuccessStatusCode ?? true else {
                 return self.call(completion: completion, with: .failure(URLSessionError.general))
             }
@@ -45,7 +44,7 @@ struct URLSessionEngine: APIRequesting {
         }
     }
 
-    private func handleSuccess<T: Codable>(with data: Data, completion: ((Result<T, Error>) -> Void)?) {
+    private func handleSuccess<T: Decodable>(with data: Data, completion: ((Result<T, Error>) -> Void)?) {
         do {
             let result = try JSONDecoder().decode(T.self, from: data)
             call(completion: completion, with: .success(result))
