@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+enum APIHTTPMethod: String {
+    case get = "GET"
+    case post = "POST"
+}

@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+struct NetworkConfiguration {
+    static let `default`: NetworkConfiguration = NetworkConfiguration(timeoutInterval: 8.0,
+                                                                      basePath: "https://www.reddit.com/")
+    let timeoutInterval: TimeInterval
+    let basePath: String
+}

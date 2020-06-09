@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+enum HTTPRequestDispatcherError: Error {
+    case invalidURL
+}
