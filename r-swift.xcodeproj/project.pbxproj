@@ -12,7 +12,6 @@
 		25554764248F14E200007A07 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25554763248F14E200007A07 /* ViewController.swift */; };
 		25554769248F14E400007A07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25554768248F14E400007A07 /* Assets.xcassets */; };
 		2555476C248F14E400007A07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2555476A248F14E400007A07 /* LaunchScreen.storyboard */; };
-		25554777248F14E400007A07 /* r_swiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25554776248F14E400007A07 /* r_swiftTests.swift */; };
 		25554782248F1C9500007A07 /* WindowProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25554781248F1C9500007A07 /* WindowProviding.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +34,6 @@
 		2555476B248F14E400007A07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2555476D248F14E400007A07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25554772248F14E400007A07 /* r-swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "r-swiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		25554776248F14E400007A07 /* r_swiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = r_swiftTests.swift; sourceTree = "<group>"; };
 		25554778248F14E400007A07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25554781248F1C9500007A07 /* WindowProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowProviding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,7 +77,7 @@
 		2555475E248F14E200007A07 /* r-swift */ = {
 			isa = PBXGroup;
 			children = (
-				25554783248F1D8200007A07 /* Supporting Files */,
+				25554785248F1F2600007A07 /* Supporting Files */,
 				25554763248F14E200007A07 /* ViewController.swift */,
 				25554768248F14E400007A07 /* Assets.xcassets */,
 			);
@@ -89,13 +87,12 @@
 		25554775248F14E400007A07 /* r-swiftTests */ = {
 			isa = PBXGroup;
 			children = (
-				25554776248F14E400007A07 /* r_swiftTests.swift */,
 				25554778248F14E400007A07 /* Info.plist */,
 			);
 			path = "r-swiftTests";
 			sourceTree = "<group>";
 		};
-		25554783248F1D8200007A07 /* Supporting Files */ = {
+		25554785248F1F2600007A07 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				2555476D248F14E400007A07 /* Info.plist */,
@@ -104,7 +101,7 @@
 				25554761248F14E200007A07 /* SceneDelegate.swift */,
 				25554781248F1C9500007A07 /* WindowProviding.swift */,
 			);
-			path = "Supporting Files";
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -117,6 +114,7 @@
 				25554758248F14E200007A07 /* Sources */,
 				25554759248F14E200007A07 /* Frameworks */,
 				2555475A248F14E200007A07 /* Resources */,
+				25554784248F1EF400007A07 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -202,6 +200,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		25554784248F1EF400007A07 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		25554758248F14E200007A07 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -218,7 +236,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25554777248F14E400007A07 /* r_swiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
