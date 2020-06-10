@@ -15,7 +15,7 @@ protocol WindowProviding: AnyObject {
 extension WindowProviding {
     func set(rootViewController: UIViewController) {
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = rootViewController
+        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
     }
 }

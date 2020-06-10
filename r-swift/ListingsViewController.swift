@@ -8,55 +8,87 @@
 
 import UIKit
 
-class ListingsViewController: UIViewController {
+class ListingsViewController: UIViewController, AlertDisplayable {
 
     let tableView = UITableView()
 
-    var listings = [ListingData]()
+    let viewModel: ListingsViewModel
+
+    init(viewModel: ListingsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        viewModel.delegate = self
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        fetchListings()
+        viewModel.fetchListings()
     }
 
     override func loadView() {
-        super.loadView()
+        view = tableView
         setupTableView()
     }
 
-    private func fetchListings() {
-        RSwiftListingsLoader().swiftListings(after: nil) { result in
-            switch result {
-            case let .success(response):
-                self.listings.append(contentsOf: response.listings)
-                self.tableView.reloadData()
-            case let .failure(error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-
     private func setupTableView() {
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-
+        tableView.dataSource = self
+        tableView.prefetchDataSource = self
+        tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
 }
 
 extension ListingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listings.count
+        return viewModel.currentCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = listings[indexPath.row].title
+        cell.textLabel?.text = viewModel.listing(at: indexPath.row)?.title ?? "LOADING..."
         return cell
+    }
+}
+
+extension ListingsViewController: ListingsViewModelDelegate {
+    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
+        guard let newIndexPathsToReload = newIndexPathsToReload else {
+            tableView.isHidden = false
+            tableView.reloadData()
+            return
+        }
+        tableView.insertRows(at: newIndexPathsToReload, with: .automatic)
+        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
+        tableView.reloadRows(at: indexPathsToReload, with: .automatic)
+    }
+
+    func onFetchFailed(with reason: String) {
+        let title = "Warning"
+        let action = UIAlertAction(title: "OK", style: .default)
+        displayAlert(with: title, message: reason, actions: [action])
+    }
+}
+
+extension ListingsViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: isLoadingCell) {
+            viewModel.fetchListings()
+        }
+    }
+}
+
+private extension ListingsViewController {
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row >= viewModel.currentCount - 25 // default count repsonse for API
+    }
+
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
     }
 }

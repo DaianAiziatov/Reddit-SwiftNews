@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WindowProviding {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        set(rootViewController: ListingsViewController())
+        set(rootViewController: ListingsViewController(viewModel: ListingsViewModel()))
         return true
     }
 }

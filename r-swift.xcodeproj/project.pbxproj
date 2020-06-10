@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		253301C8248F4A7500F3CEB2 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253301C7248F4A7500F3CEB2 /* Listing.swift */; };
+		2551B4A6249068FF00FBC98C /* ListingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2551B4A5249068FF00FBC98C /* ListingsViewModel.swift */; };
+		2551B4A9249069CC00FBC98C /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2551B4A8249069CC00FBC98C /* Array+Extension.swift */; };
+		2551B4AC24906E0E00FBC98C /* AlertDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2551B4AB24906E0E00FBC98C /* AlertDisplayable.swift */; };
 		25554760248F14E200007A07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2555475F248F14E200007A07 /* AppDelegate.swift */; };
 		25554762248F14E200007A07 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25554761248F14E200007A07 /* SceneDelegate.swift */; };
 		25554764248F14E200007A07 /* ListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25554763248F14E200007A07 /* ListingsViewController.swift */; };
@@ -43,6 +46,9 @@
 
 /* Begin PBXFileReference section */
 		253301C7248F4A7500F3CEB2 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
+		2551B4A5249068FF00FBC98C /* ListingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsViewModel.swift; sourceTree = "<group>"; };
+		2551B4A8249069CC00FBC98C /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		2551B4AB24906E0E00FBC98C /* AlertDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDisplayable.swift; sourceTree = "<group>"; };
 		2555475C248F14E200007A07 /* r-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "r-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2555475F248F14E200007A07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25554761248F14E200007A07 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +94,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2551B4A3249068CC00FBC98C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				25554763248F14E200007A07 /* ListingsViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		2551B4A4249068EA00FBC98C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2551B4A5249068FF00FBC98C /* ListingsViewModel.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		2551B4A72490698700FBC98C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2551B4A8249069CC00FBC98C /* Array+Extension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		2551B4AA24906DFB00FBC98C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2551B4AB24906E0E00FBC98C /* AlertDisplayable.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
 		25554753248F14E200007A07 = {
 			isa = PBXGroup;
 			children = (
@@ -109,10 +147,11 @@
 		2555475E248F14E200007A07 /* r-swift */ = {
 			isa = PBXGroup;
 			children = (
+				2551B4AA24906DFB00FBC98C /* Protocols */,
+				2551B4A72490698700FBC98C /* Extensions */,
 				25F3CD61248F3D5C0002A9BA /* Features */,
 				25554786248F329500007A07 /* Networking */,
 				25554785248F1F2600007A07 /* Supporting Files */,
-				25554763248F14E200007A07 /* ListingsViewController.swift */,
 				25554768248F14E400007A07 /* Assets.xcassets */,
 			);
 			path = "r-swift";
@@ -207,6 +246,8 @@
 		25F3CD62248F3D650002A9BA /* RSwiftListings */ = {
 			isa = PBXGroup;
 			children = (
+				2551B4A4249068EA00FBC98C /* ViewModel */,
+				2551B4A3249068CC00FBC98C /* ViewController */,
 				25F3CD6A248F42F40002A9BA /* Loaders */,
 				25F3CD63248F3DEB0002A9BA /* Models */,
 			);
@@ -356,6 +397,8 @@
 				25554788248F32CE00007A07 /* HTTPURLResponse+Extension.swift in Sources */,
 				25F3CD52248F36950002A9BA /* NetworkConfiguration.swift in Sources */,
 				253301C8248F4A7500F3CEB2 /* Listing.swift in Sources */,
+				2551B4A9249069CC00FBC98C /* Array+Extension.swift in Sources */,
+				2551B4A6249068FF00FBC98C /* ListingsViewModel.swift in Sources */,
 				25554764248F14E200007A07 /* ListingsViewController.swift in Sources */,
 				25F3CD6C248F43280002A9BA /* RSwiftListingsLoader.swift in Sources */,
 				25F3CD4E248F36360002A9BA /* RequestDispatching.swift in Sources */,
@@ -365,6 +408,7 @@
 				25F3CD5A248F37160002A9BA /* HTTPRequestDispatcherError.swift in Sources */,
 				25F3CD5C248F37500002A9BA /* URLSessionError.swift in Sources */,
 				25F3CD57248F36EF0002A9BA /* HTTPRequestDispatcher.swift in Sources */,
+				2551B4AC24906E0E00FBC98C /* AlertDisplayable.swift in Sources */,
 				25F3CD69248F42590002A9BA /* ListingData.swift in Sources */,
 				25554782248F1C9500007A07 /* WindowProviding.swift in Sources */,
 				25554762248F14E200007A07 /* SceneDelegate.swift in Sources */,
