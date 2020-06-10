@@ -29,10 +29,6 @@ final class ListingsViewModel {
         return listings.count
     }
 
-    var total: Int {
-        return listings.count + 25
-    }
-
     func listing(at index: Int) -> ListingData? {
         return listings[safe: index]
     }

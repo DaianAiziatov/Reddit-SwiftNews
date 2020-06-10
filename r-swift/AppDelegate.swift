@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WindowProviding {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        set(rootViewController: ListingsViewController(viewModel: ListingsViewModel()))
+        set(rootViewController: ListingsViewController(viewModel: ListingsViewModel(), title: "Swift News"))
         return true
     }
 }

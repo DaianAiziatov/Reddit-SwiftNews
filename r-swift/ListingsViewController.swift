@@ -14,10 +14,11 @@ class ListingsViewController: UIViewController, AlertDisplayable {
 
     let viewModel: ListingsViewModel
 
-    init(viewModel: ListingsViewModel) {
+    init(viewModel: ListingsViewModel, title: String) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
+        self.title = title
     }
 
     required init?(coder: NSCoder) {
@@ -27,6 +28,7 @@ class ListingsViewController: UIViewController, AlertDisplayable {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.fetchListings()
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     override func loadView() {
@@ -38,7 +40,10 @@ class ListingsViewController: UIViewController, AlertDisplayable {
         tableView.dataSource = self
         tableView.prefetchDataSource = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.separatorStyle = .none
+        tableView.estimatedRowHeight = 250
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(ListingTableViewCell.self, forCellReuseIdentifier: "cell")
     }
 }
 
@@ -48,8 +53,10 @@ extension ListingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = viewModel.listing(at: indexPath.row)?.title ?? "LOADING..."
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListingTableViewCell else {
+            fatalError("Unregistered cell")
+        }
+        cell.configure(with: viewModel.listing(at: indexPath.row))
         return cell
     }
 }
@@ -83,6 +90,7 @@ extension ListingsViewController: UITableViewDataSourcePrefetching {
 
 private extension ListingsViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        // FIXME: default count repsonse for API
         return indexPath.row >= viewModel.currentCount - 25 // default count repsonse for API
     }
 

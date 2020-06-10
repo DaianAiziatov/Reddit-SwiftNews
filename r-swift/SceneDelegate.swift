@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, WindowProviding {
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
-        set(rootViewController: ListingsViewController(viewModel: ListingsViewModel()))
+        set(rootViewController: ListingsViewController(viewModel: ListingsViewModel(), title: "Swift News"))
         window?.windowScene = windowScene
     }
 }

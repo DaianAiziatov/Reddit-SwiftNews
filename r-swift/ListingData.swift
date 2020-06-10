@@ -10,8 +10,24 @@ import Foundation
 
 struct ListingData: Decodable {
     let title: String
-    // FIXME: Non optional might be self or default
-    let thumbnail: String?
+    let thumbnail: String
+    let thumbnailHeight: Int?
     let url: String?
     let score: Int
+    let selftext: String?
+    let numberOfComments: Int
+
+    var isValidThumbnailUrl: Bool {
+        return thumbnail != "self" && thumbnail != "default"
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case title,
+        thumbnail,
+        url,
+        score,
+        selftext,
+        numberOfComments = "num_comments",
+        thumbnailHeight = "thumbnail_height"
+    }
 }
