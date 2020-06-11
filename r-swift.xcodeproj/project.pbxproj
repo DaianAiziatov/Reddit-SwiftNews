@@ -49,7 +49,7 @@
 		2551B4AD24907BB700FBC98C /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		2551B4B024907E1500FBC98C /* ListingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTableViewCell.swift; sourceTree = "<group>"; };
 		2551B4B224907F7500FBC98C /* UIImageView+Load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Load.swift"; sourceTree = "<group>"; };
-		2555475C248F14E200007A07 /* r-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "r-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2555475C248F14E200007A07 /* Swift News.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swift News.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2555475F248F14E200007A07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25554763248F14E200007A07 /* ListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsViewController.swift; sourceTree = "<group>"; };
 		25554768248F14E400007A07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,7 +144,7 @@
 		2555475D248F14E200007A07 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2555475C248F14E200007A07 /* r-swift.app */,
+				2555475C248F14E200007A07 /* Swift News.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -307,7 +307,7 @@
 			);
 			name = "r-swift";
 			productName = "r-swift";
-			productReference = 2555475C248F14E200007A07 /* r-swift.app */;
+			productReference = 2555475C248F14E200007A07 /* Swift News.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -477,7 +477,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -531,7 +531,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -554,7 +554,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.daianaiziatov.r-swift";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Swift News";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -573,7 +573,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.daianaiziatov.r-swift";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Swift News";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
