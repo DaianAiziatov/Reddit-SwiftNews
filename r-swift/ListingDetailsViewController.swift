@@ -35,7 +35,6 @@ class ListingDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(scrollView)
         view.backgroundColor = .white
         title = viewModel.title
 
@@ -52,6 +51,7 @@ class ListingDetailsViewController: UIViewController {
     }
 
     private func setupScrollView() {
+        view.addSubview(scrollView)
         scrollView.embed(in: view)
         scrollView.backgroundColor = UIColor(white: 0.9, alpha: 1)
     }
@@ -64,7 +64,7 @@ class ListingDetailsViewController: UIViewController {
         contentStackView.embed(in: scrollView)
         contentStackView.isLayoutMarginsRelativeArrangement = true
         contentStackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
-        contentStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        contentStackView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
     }
 
     private func setupThumbnailImageView() {
