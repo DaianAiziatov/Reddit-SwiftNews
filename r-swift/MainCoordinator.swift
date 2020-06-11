@@ -10,12 +10,12 @@ import UIKit
 
 class MainCoordinator: Coordinator {
 
+    var childCoordinators: [Coordinator] = []
+    var navigationController: UINavigationController
+
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
-    var childCoordinators: [Coordinator] = []
-    var navigationController: UINavigationController
 
     func start() {
         let listingsViewModel = ListingsViewModel()
@@ -24,9 +24,10 @@ class MainCoordinator: Coordinator {
         navigationController.pushViewController(listingsController, animated: false)
     }
 
-    func showListingDetails(listing: ListingData) {
-        let listingDetailsViewModel = ListingDetailsViewModel(listing: listing)
-        let detailsController = ListingDetailsViewController(viewModel: listingDetailsViewModel)
-        navigationController.pushViewController(detailsController, animated: true)
+    private func showListingDetails(listing: ListingData) {
+        let listinDetailsCoordinator = ListingDetailsCoordinator(navigationController: navigationController, listing: listing)
+        childCoordinators.append(listinDetailsCoordinator)
+        listinDetailsCoordinator.parentCoordinator = self
+        listinDetailsCoordinator.start()
     }
 }

@@ -25,6 +25,7 @@
 		25F1FC372491BA7300A638AD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F1FC362491BA7300A638AD /* WebViewController.swift */; };
 		25F1FC3A2491D80E00A638AD /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F1FC392491D80E00A638AD /* Coordinator.swift */; };
 		25F1FC3C2491D88500A638AD /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F1FC3B2491D88500A638AD /* MainCoordinator.swift */; };
+		25F1FC3E2491DDF500A638AD /* ListingDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F1FC3D2491DDF500A638AD /* ListingDetailsCoordinator.swift */; };
 		25F3CD4C248F360A0002A9BA /* APIHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3CD4B248F360A0002A9BA /* APIHTTPMethod.swift */; };
 		25F3CD4E248F36360002A9BA /* RequestDispatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3CD4D248F36360002A9BA /* RequestDispatching.swift */; };
 		25F3CD50248F36650002A9BA /* APIRequesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3CD4F248F36650002A9BA /* APIRequesting.swift */; };
@@ -73,6 +74,7 @@
 		25F1FC362491BA7300A638AD /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		25F1FC392491D80E00A638AD /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		25F1FC3B2491D88500A638AD /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		25F1FC3D2491DDF500A638AD /* ListingDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingDetailsCoordinator.swift; sourceTree = "<group>"; };
 		25F3CD4B248F360A0002A9BA /* APIHTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHTTPMethod.swift; sourceTree = "<group>"; };
 		25F3CD4D248F36360002A9BA /* RequestDispatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDispatching.swift; sourceTree = "<group>"; };
 		25F3CD4F248F36650002A9BA /* APIRequesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequesting.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			children = (
 				25F1FC392491D80E00A638AD /* Coordinator.swift */,
 				25F1FC3B2491D88500A638AD /* MainCoordinator.swift */,
+				25F1FC3D2491DDF500A638AD /* ListingDetailsCoordinator.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				25F3CD4E248F36360002A9BA /* RequestDispatching.swift in Sources */,
 				25F3CD60248F38D50002A9BA /* RSwiftEndpoint.swift in Sources */,
 				25554760248F14E200007A07 /* AppDelegate.swift in Sources */,
+				25F1FC3E2491DDF500A638AD /* ListingDetailsCoordinator.swift in Sources */,
 				25F3CD4C248F360A0002A9BA /* APIHTTPMethod.swift in Sources */,
 				25F3CD5A248F37160002A9BA /* HTTPRequestDispatcherError.swift in Sources */,
 				25F3CD5C248F37500002A9BA /* URLSessionError.swift in Sources */,

@@ -17,9 +17,15 @@ class ListingDetailsViewController: UIViewController {
     private var openWebViewButton: UIButton!
 
     private var viewModel: ListingDetailsViewModel
+    private var onNavigateBack: () -> Void
+    private var onTapShowWebVersion: (URL) -> Void
 
-    init(viewModel: ListingDetailsViewModel) {
+    init(viewModel: ListingDetailsViewModel,
+         onNavigateBack: @escaping () -> Void,
+         onTapShowWebVersion: @escaping (URL) -> Void) {
         self.viewModel = viewModel
+        self.onNavigateBack = onNavigateBack
+        self.onTapShowWebVersion = onTapShowWebVersion
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -33,6 +39,11 @@ class ListingDetailsViewController: UIViewController {
         scrollView.embed(in: view)
         scrollView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         setupViews()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        onNavigateBack()
     }
 
     private func setupViews() {
@@ -78,13 +89,6 @@ class ListingDetailsViewController: UIViewController {
             assertionFailure("Previously checked webVersionURL is missed")
             return
         }
-        let webController = WebViewController(urlToOpen: webVersionURL)
-        if #available(iOS 13.0, *) {
-        } else {
-            webController.modalTransitionStyle = .coverVertical
-            webController.modalPresentationStyle = .overFullScreen
-            webController.modalPresentationCapturesStatusBarAppearance = true
-        }
-        navigationController?.present(webController, animated: true)
+        onTapShowWebVersion(webVersionURL)
     }
 }
