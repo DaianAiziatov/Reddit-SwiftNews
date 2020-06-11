@@ -44,7 +44,7 @@ class ListingsViewController: UIViewController, AlertDisplayable {
     }
 
     private func setupTableView() {
-        tableView.dataSource = self
+        tableView.delegate = self
         tableView.prefetchDataSource = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -66,6 +66,17 @@ extension ListingsViewController: UITableViewDataSource {
         }
         cell.configure(with: viewModel.listing(at: indexPath.row))
         return cell
+    }
+}
+
+extension ListingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let listing = viewModel.listing(at: indexPath.row) else {
+            return
+        }
+        let listingDetailsViewModel = ListingDetailsViewModel(listing: listing)
+        let detailsController = ListingDetailsViewController(viewModel: listingDetailsViewModel)
+        navigationController?.pushViewController(detailsController, animated: true)
     }
 }
 
