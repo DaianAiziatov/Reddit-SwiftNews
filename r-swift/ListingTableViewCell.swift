@@ -29,68 +29,13 @@ class ListingTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = UIColor(white: 0.9, alpha: 1)
-
-        addSubview(containerView)
-        containerView.backgroundColor = .white
-        containerView.embed(in: self, paddingTop: 10, paddingBottom: 10)
-
-        containerView.addSubview(titleLabel)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        titleLabel.numberOfLines = 0
-        titleLabel.anchor(top: containerView.topAnchor,
-                          left: containerView.leftAnchor,
-                          right: containerView.rightAnchor,
-                          paddingTop: 15,
-                          paddingLeft: 15,
-                          paddingRight: 15)
-
-        containerView.addSubview(thumbImageView)
-        thumbImageView.contentMode = .scaleAspectFit
-        thumbImageView.anchor(left: containerView.leftAnchor,
-                              right: containerView.rightAnchor)
-        thumbImageViewTopConstraint = thumbImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15)
-        thumbImageViewTopConstraint?.isActive = true
-
-        containerView.addSubview(indicatorView)
-        indicatorView.center(in: containerView)
-
-        containerView.addSubview(upVotesIconImageView)
-        upVotesIconImageView.contentMode = .scaleAspectFit
-        containerView.addSubview(downVotesIconImageView)
-        downVotesIconImageView.contentMode = .scaleAspectFit
-        containerView.addSubview(scoresLabel)
-        containerView.addSubview(commentsIconImageView)
-        commentsIconImageView.contentMode = .scaleAspectFit
-        containerView.addSubview(numberOfCommentsLabel)
-
-        scoresLabel.font = UIFont.systemFont(ofSize: 10)
-        numberOfCommentsLabel.font = UIFont.systemFont(ofSize: 10)
-
-        scoresStackView = UIStackView(arrangedSubviews: [upVotesIconImageView, scoresLabel, downVotesIconImageView])
-        scoresStackView.distribution = .equalSpacing
-        scoresStackView.axis = .horizontal
-        scoresStackView.spacing = 5
-        containerView.addSubview(scoresStackView)
-        scoresStackView.anchor(top: thumbImageView.bottomAnchor,
-                               left: containerView.leftAnchor,
-                               bottom: containerView.bottomAnchor,
-                               paddingTop: 15,
-                               paddingLeft: 15,
-                               paddingBottom: 15,
-                               height: 15)
-
-        commentsStackView = UIStackView(arrangedSubviews: [commentsIconImageView, numberOfCommentsLabel])
-        commentsStackView.distribution = .equalSpacing
-        commentsStackView.axis = .horizontal
-        commentsStackView.spacing = 5
-        containerView.addSubview(commentsStackView)
-        commentsStackView.anchor(top: thumbImageView.bottomAnchor,
-                                 bottom: containerView.bottomAnchor,
-                                 right: containerView.rightAnchor,
-                                 paddingTop: 15,
-                                 paddingBottom: 15,
-                                 paddingRight: 15,
-                                 height: 15)
+        selectionStyle = .none
+        setupContainerView()
+        setupTitleLabel()
+        setupThumbnailImageView()
+        setupIndicatorView()
+        setupScoresView()
+        setupCommentsView()
     }
 
     required init?(coder: NSCoder) {
@@ -100,12 +45,11 @@ class ListingTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         configure(with: .none)
-
     }
 
     func configure(with listing: ListingData?) {
         guard let listing = listing else {
-            setupLoading()
+            setupForReuse()
             return
         }
         scoresStackView.isHidden = false
@@ -121,20 +65,102 @@ class ListingTableViewCell: UITableViewCell {
             thumbImageViewHeightContraint?.priority = .defaultHigh
             thumbImageViewHeightContraint?.isActive = true
             thumbImageViewTopConstraint?.constant = 15
-            thumbImageView.loadImage(from: url)
+            indicatorView.startAnimating()
+            thumbImageView.loadImage(from: url) { _ in
+                DispatchQueue.main.async {
+                    self.indicatorView.stopAnimating()
+                }
+            }
         } else {
             thumbImageViewTopConstraint?.constant = 0
         }
     }
 
-    private func setupLoading() {
-        indicatorView.isHidden = false
-        indicatorView.startAnimating()
+    private func setupForReuse() {
         thumbImageView.image = nil
         titleLabel.text = nil
         thumbImageViewHeightContraint?.isActive = false
         thumbImageViewTopConstraint?.constant = 0
         scoresStackView.isHidden = true
         commentsStackView.isHidden = true
+    }
+
+    private func setupContainerView() {
+        addSubview(containerView)
+        containerView.backgroundColor = .white
+        containerView.embed(in: self, paddingTop: 10, paddingBottom: 10)
+    }
+
+    private func setupTitleLabel() {
+        containerView.addSubview(titleLabel)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLabel.numberOfLines = 0
+        titleLabel.anchor(top: containerView.topAnchor,
+                          left: containerView.leftAnchor,
+                          right: containerView.rightAnchor,
+                          paddingTop: 15,
+                          paddingLeft: 15,
+                          paddingRight: 15)
+    }
+
+    private func setupThumbnailImageView() {
+        containerView.addSubview(thumbImageView)
+        thumbImageView.contentMode = .scaleAspectFit
+        thumbImageView.anchor(left: containerView.leftAnchor,
+                              right: containerView.rightAnchor)
+        thumbImageViewTopConstraint = thumbImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15)
+        thumbImageViewTopConstraint?.isActive = true
+    }
+
+    private func setupIndicatorView() {
+        containerView.addSubview(indicatorView)
+        indicatorView.center(in: thumbImageView)
+        indicatorView.hidesWhenStopped = true
+    }
+
+    private func setupScoresView() {
+        containerView.addSubview(upVotesIconImageView)
+        upVotesIconImageView.contentMode = .scaleAspectFit
+
+        containerView.addSubview(downVotesIconImageView)
+        downVotesIconImageView.contentMode = .scaleAspectFit
+
+        containerView.addSubview(scoresLabel)
+        scoresLabel.font = UIFont.systemFont(ofSize: 10)
+
+        scoresStackView = UIStackView(arrangedSubviews: [upVotesIconImageView, scoresLabel, downVotesIconImageView])
+        scoresStackView.distribution = .equalSpacing
+        scoresStackView.axis = .horizontal
+        scoresStackView.spacing = 5
+        containerView.addSubview(scoresStackView)
+        scoresStackView.anchor(top: thumbImageView.bottomAnchor,
+                               left: containerView.leftAnchor,
+                               bottom: containerView.bottomAnchor,
+                               paddingTop: 15,
+                               paddingLeft: 15,
+                               paddingBottom: 15,
+                               height: 15)
+
+    }
+
+    private func setupCommentsView() {
+        containerView.addSubview(commentsIconImageView)
+        commentsIconImageView.contentMode = .scaleAspectFit
+
+        containerView.addSubview(numberOfCommentsLabel)
+        numberOfCommentsLabel.font = UIFont.systemFont(ofSize: 10)
+
+        commentsStackView = UIStackView(arrangedSubviews: [commentsIconImageView, numberOfCommentsLabel])
+        commentsStackView.distribution = .equalSpacing
+        commentsStackView.axis = .horizontal
+        commentsStackView.spacing = 5
+        containerView.addSubview(commentsStackView)
+        commentsStackView.anchor(top: thumbImageView.bottomAnchor,
+                                 bottom: containerView.bottomAnchor,
+                                 right: containerView.rightAnchor,
+                                 paddingTop: 15,
+                                 paddingBottom: 15,
+                                 paddingRight: 15,
+                                 height: 15)
     }
 }

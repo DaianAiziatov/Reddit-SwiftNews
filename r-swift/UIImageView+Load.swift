@@ -34,7 +34,7 @@ extension UIImageView {
             }
             imagesCache.setObject(image, forKey: url.absoluteString as NSString)
             DispatchQueue.main.async {
-                self.image = image
+                self.image = self.image == nil ? image : nil
             }
             completion?(Result.success(image))
         }.resume()
