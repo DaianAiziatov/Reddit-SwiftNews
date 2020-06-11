@@ -12,10 +12,18 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, WindowProviding {
 
     var window: UIWindow?
+    private var mainCoordinator: Coordinator?
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        set(rootViewController: ListingsViewController(viewModel: ListingsViewModel(), title: "Swift News"))
+
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let navigationController = UINavigationController()
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+
+        mainCoordinator = MainCoordinator(navigationController: navigationController)
+        mainCoordinator?.start()
         return true
     }
 }

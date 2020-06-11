@@ -14,10 +14,12 @@ class ListingsViewController: UIViewController, AlertDisplayable {
     private let refreshControl = UIRefreshControl()
     private let activityIndicator = UIActivityIndicatorView()
 
-    let viewModel: ListingsViewModel
+    private let onSelectListing: (ListingData) -> Void
+    private let viewModel: ListingsViewModel
 
-    init(viewModel: ListingsViewModel, title: String) {
+    init(title: String, viewModel: ListingsViewModel, onSelectListing: @escaping (ListingData) -> Void) {
         self.viewModel = viewModel
+        self.onSelectListing = onSelectListing
         super.init(nibName: nil, bundle: nil)
         self.viewModel.delegate = self
         self.title = title
@@ -86,9 +88,7 @@ extension ListingsViewController: UITableViewDelegate {
         guard let listing = viewModel.listing(at: indexPath.row) else {
             return
         }
-        let listingDetailsViewModel = ListingDetailsViewModel(listing: listing)
-        let detailsController = ListingDetailsViewController(viewModel: listingDetailsViewModel)
-        navigationController?.pushViewController(detailsController, animated: true)
+        onSelectListing(listing)
     }
 }
 
