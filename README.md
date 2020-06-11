@@ -17,3 +17,8 @@
 - Pull to refresh
 
 - Open web version of article inside the app with `WebViewController`
+
+
+### Demo
+
+![demo](demo/demo.gif)
