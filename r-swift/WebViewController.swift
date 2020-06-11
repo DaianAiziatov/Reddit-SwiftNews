@@ -28,6 +28,7 @@ class WebViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .clear
         let stackView = UIStackView(arrangedSubviews: [toolBar, progressView, webView])
         stackView.axis = .vertical
         view.addSubview(stackView)

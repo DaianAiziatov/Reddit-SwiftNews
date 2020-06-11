@@ -54,7 +54,7 @@ extension UIView {
                paddingLeft: CGFloat? = nil,
                paddingBottom: CGFloat? = nil,
                paddingRight: CGFloat? = nil) {
-        anchor(top: view.topAnchor,
+        anchor(top: view.safeAreaLayoutGuide.topAnchor,
                left: view.leftAnchor,
                bottom: view.bottomAnchor,
                right: view.rightAnchor,

@@ -19,7 +19,7 @@ class ListingsViewController: UIViewController, AlertDisplayable {
     init(viewModel: ListingsViewModel, title: String) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        viewModel.delegate = self
+        self.viewModel.delegate = self
         self.title = title
     }
 
@@ -29,24 +29,13 @@ class ListingsViewController: UIViewController, AlertDisplayable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(tableView)
-        tableView.embed(in: view)
         view.backgroundColor = .white
-
-        view.addSubview(activityIndicator)
-        activityIndicator.center(in: view)
-        activityIndicator.style = .whiteLarge
-        activityIndicator.color = .black
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.startAnimating()
-
-        tableView.isHidden = true
-
         setupTableView()
+        setupActivityIndicator()
         refreshControl.addTarget(self, action: #selector(refresh), for: .allEvents)
+        navigationController?.navigationBar.prefersLargeTitles = true
 
         viewModel.fetchListings()
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     @objc
@@ -55,6 +44,8 @@ class ListingsViewController: UIViewController, AlertDisplayable {
     }
 
     private func setupTableView() {
+        view.addSubview(tableView)
+        tableView.embed(in: view)
         tableView.delegate = self
         tableView.prefetchDataSource = self
         tableView.dataSource = self
@@ -63,6 +54,17 @@ class ListingsViewController: UIViewController, AlertDisplayable {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(ListingTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.refreshControl = refreshControl
+        tableView.isHidden = true
+    }
+
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.center(in: view)
+        activityIndicator.style = .whiteLarge
+        activityIndicator.color = .black
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
+
     }
 }
 
@@ -122,7 +124,6 @@ extension ListingsViewController: UITableViewDataSourcePrefetching {
 
 private extension ListingsViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        // FIXME: default count repsonse for API
         return indexPath.row >= viewModel.currentCount - 25 // default count repsonse for API
     }
 

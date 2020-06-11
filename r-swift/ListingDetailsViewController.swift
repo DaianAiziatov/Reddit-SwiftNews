@@ -33,6 +33,7 @@ class ListingDetailsViewController: UIViewController {
         scrollView.embed(in: view)
         scrollView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         setupViews()
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     private func setupViews() {
@@ -79,6 +80,12 @@ class ListingDetailsViewController: UIViewController {
             return
         }
         let webController = WebViewController(urlToOpen: webVersionURL)
+        if #available(iOS 13.0, *) {
+        } else {
+            webController.modalTransitionStyle = .coverVertical
+            webController.modalPresentationStyle = .overFullScreen
+            webController.modalPresentationCapturesStatusBarAppearance = true
+        }
         navigationController?.present(webController, animated: true)
     }
 }
