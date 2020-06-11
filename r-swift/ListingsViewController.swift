@@ -10,8 +10,9 @@ import UIKit
 
 class ListingsViewController: UIViewController, AlertDisplayable {
 
-    let tableView = UITableView()
+    private let tableView = UITableView()
     private let refreshControl = UIRefreshControl()
+    private let activityIndicator = UIActivityIndicatorView()
 
     let viewModel: ListingsViewModel
 
@@ -28,14 +29,24 @@ class ListingsViewController: UIViewController, AlertDisplayable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.fetchListings()
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
+        view.addSubview(tableView)
+        tableView.embed(in: view)
+        view.backgroundColor = .white
 
-    override func loadView() {
-        view = tableView
+        view.addSubview(activityIndicator)
+        activityIndicator.center(in: view)
+        activityIndicator.style = .whiteLarge
+        activityIndicator.color = .black
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
+
+        tableView.isHidden = true
+
         setupTableView()
         refreshControl.addTarget(self, action: #selector(refresh), for: .allEvents)
+
+        viewModel.fetchListings()
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     @objc
@@ -84,6 +95,7 @@ extension ListingsViewController: ListingsViewModelDelegate {
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
         guard let newIndexPathsToReload = newIndexPathsToReload else {
             tableView.isHidden = false
+            activityIndicator.stopAnimating()
             tableView.reloadData()
             refreshControl.endRefreshing()
             return
