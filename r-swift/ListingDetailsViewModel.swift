@@ -29,6 +29,7 @@ final class ListingDetailsViewModel {
 
     var webVersionURL: URL? {
         guard let webVersionURLString = listing.url,
+            webVersionURLString.contains("http"),
             let webVersionURL = URL(string: webVersionURLString) else {
             return nil
         }

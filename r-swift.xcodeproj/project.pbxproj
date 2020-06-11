@@ -282,12 +282,12 @@
 			isa = PBXGroup;
 			children = (
 				25F1FC352491BA5800A638AD /* WebViewController */,
-				25F3CD62248F3D650002A9BA /* RSwiftListings */,
+				25F3CD62248F3D650002A9BA /* Listings */,
 			);
 			name = Features;
 			sourceTree = "<group>";
 		};
-		25F3CD62248F3D650002A9BA /* RSwiftListings */ = {
+		25F3CD62248F3D650002A9BA /* Listings */ = {
 			isa = PBXGroup;
 			children = (
 				2551B4AF24907DF000FBC98C /* Views */,
@@ -296,7 +296,7 @@
 				25F3CD6A248F42F40002A9BA /* Loaders */,
 				25F3CD63248F3DEB0002A9BA /* Models */,
 			);
-			name = RSwiftListings;
+			name = Listings;
 			sourceTree = "<group>";
 		};
 		25F3CD63248F3DEB0002A9BA /* Models */ = {

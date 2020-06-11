@@ -36,9 +36,14 @@ class ListingDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(scrollView)
-        scrollView.embed(in: view)
-        scrollView.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        setupViews()
+        view.backgroundColor = .white
+        title = viewModel.title
+
+        setupScrollView()
+        setupContentStackView()
+        setupThumbnailImageView()
+        setupTextView()
+        setupOpenWebViewButton()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -46,38 +51,53 @@ class ListingDetailsViewController: UIViewController {
         onNavigateBack()
     }
 
-    private func setupViews() {
-        title = viewModel.title
+    private func setupScrollView() {
+        scrollView.embed(in: view)
+        scrollView.backgroundColor = UIColor(white: 0.9, alpha: 1)
+    }
 
+    private func setupContentStackView() {
         scrollView.addSubview(contentStackView)
         contentStackView.alignment = .center
         contentStackView.axis = .vertical
         contentStackView.spacing = 10
         contentStackView.embed(in: scrollView)
+        contentStackView.isLayoutMarginsRelativeArrangement = true
+        contentStackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         contentStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+    }
 
+    private func setupThumbnailImageView() {
         if let thumbnailURL = viewModel.thumbnailURL {
             thumbImageView = UIImageView()
             thumbImageView.contentMode = .center
             contentStackView.addArrangedSubview(thumbImageView)
-            thumbImageView.backgroundColor = .white
             thumbImageView?.loadImage(from: thumbnailURL)
         }
+    }
 
+    private func setupTextView() {
+        textTextView = UITextView()
+        contentStackView.addArrangedSubview(textTextView)
+        textTextView.isScrollEnabled = false
+        textTextView.font = UIFont.systemFont(ofSize: 15)
+        textTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         if viewModel.text?.isEmpty == false {
-            textTextView = UITextView()
-            contentStackView.addArrangedSubview(textTextView)
-            textTextView.isScrollEnabled = false
-            textTextView.font = UIFont.systemFont(ofSize: 15)
-            textTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
             textTextView.text = viewModel.text
             textTextView.backgroundColor = .white
+        } else if viewModel.thumbnailURL == nil {
+            textTextView.text = "Sorry, no content for this arcticle. Try web version."
+            textTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        } else {
+            textTextView.isHidden = true
         }
+    }
 
+    private func setupOpenWebViewButton() {
         if viewModel.webVersionURL != nil {
             openWebViewButton = UIButton()
             openWebViewButton.setTitle("Open Web Version", for: .normal)
-            openWebViewButton.tintColor = .black
+            openWebViewButton.setTitleColor(.black, for: .normal)
             contentStackView.addArrangedSubview(openWebViewButton)
             openWebViewButton.addTarget(self, action: #selector(openWebView), for: .touchUpInside)
         }
