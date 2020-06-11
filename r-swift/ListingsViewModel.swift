@@ -33,6 +33,12 @@ final class ListingsViewModel {
         return listings[safe: index]
     }
 
+    func refresh() {
+        listings = []
+        after = nil
+        fetchListings()
+    }
+
     func fetchListings() {
         guard !isFetchInProgress else {
             return

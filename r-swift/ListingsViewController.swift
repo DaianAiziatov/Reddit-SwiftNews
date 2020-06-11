@@ -11,6 +11,7 @@ import UIKit
 class ListingsViewController: UIViewController, AlertDisplayable {
 
     let tableView = UITableView()
+    private let refreshControl = UIRefreshControl()
 
     let viewModel: ListingsViewModel
 
@@ -34,6 +35,12 @@ class ListingsViewController: UIViewController, AlertDisplayable {
     override func loadView() {
         view = tableView
         setupTableView()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .allEvents)
+    }
+
+    @objc
+    private func refresh() {
+        viewModel.refresh()
     }
 
     private func setupTableView() {
@@ -44,6 +51,7 @@ class ListingsViewController: UIViewController, AlertDisplayable {
         tableView.estimatedRowHeight = 250
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(ListingTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.refreshControl = refreshControl
     }
 }
 
@@ -66,6 +74,7 @@ extension ListingsViewController: ListingsViewModelDelegate {
         guard let newIndexPathsToReload = newIndexPathsToReload else {
             tableView.isHidden = false
             tableView.reloadData()
+            refreshControl.endRefreshing()
             return
         }
         tableView.insertRows(at: newIndexPathsToReload, with: .automatic)
