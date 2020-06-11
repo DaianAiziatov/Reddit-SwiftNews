@@ -33,7 +33,6 @@ class ListingDetailsViewController: UIViewController {
         scrollView.embed(in: view)
         scrollView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         setupViews()
-        navigationItem.largeTitleDisplayMode = .never
     }
 
     private func setupViews() {

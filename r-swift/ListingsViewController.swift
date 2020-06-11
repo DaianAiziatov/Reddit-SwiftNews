@@ -33,8 +33,6 @@ class ListingsViewController: UIViewController, AlertDisplayable {
         setupTableView()
         setupActivityIndicator()
         refreshControl.addTarget(self, action: #selector(refresh), for: .allEvents)
-        navigationController?.navigationBar.prefersLargeTitles = true
-
         viewModel.fetchListings()
     }
 
@@ -45,6 +43,7 @@ class ListingsViewController: UIViewController, AlertDisplayable {
 
     private func setupTableView() {
         view.addSubview(tableView)
+        tableView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         tableView.embed(in: view)
         tableView.delegate = self
         tableView.prefetchDataSource = self
